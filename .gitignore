@@ -38,3 +38,6 @@ coverage/
 
 # Misc
 .cache/
+
+# Streamlit
+.streamlit/secrets.toml

@@ -1,244 +1,112 @@
-# Therapy Meta Description Generator
+# 🧠 Therapy Meta Description Generator
 
-A web application for generating SEO-optimized meta descriptions for therapy websites, including specialty pages and blog posts.
+Generate SEO-optimized meta descriptions and titles for therapy websites using AI.
 
 ## Features
 
-- **Two Page Types**: Generate meta descriptions for specialty pages or blog posts
-- **Claude API Integration**: Uses Anthropic's Claude AI for intelligent, context-aware generation
-- **SEO Scoring**: Real-time SEO score with actionable feedback
-- **Character Count Validation**: Visual indicators for optimal length (150-160 characters)
-- **Specialty Detection**: Automatically optimizes based on therapy specialty
-- **Copy to Clipboard**: One-click copying of generated descriptions
-- **Optional Fields**: Flexible input with specialty name, focus keyword, and content
+- **Three Page Types**: Homepage, Specialty Pages, and Blog Posts
+- **Structured Input**: Practice name, city, state, focus keywords
+- **AI-Powered**: Uses Claude Sonnet 4.5 for intelligent generation
+- **SEO Scoring**: Real-time feedback on meta description quality
+- **Cost Tracking**: Monitor API usage costs
+- **Smart Formulas**: Follows strict SEO best practices
 
-## Tech Stack
+## Quick Start
 
-- **Frontend**: React
-- **Backend**: Node.js with Express
-- **AI**: Claude API (Anthropic)
-- **Styling**: Custom CSS
+### Local Development
 
-## Prerequisites
+1. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- Node.js (v14 or higher)
-- npm or yarn
-- Anthropic API key ([Get one here](https://console.anthropic.com/))
+2. **Set up your API key**:
+   Create `.streamlit/secrets.toml`:
+   ```toml
+   ANTHROPIC_API_KEY = "your-api-key-here"
+   ```
 
-## Installation
+3. **Run the app**:
+   ```bash
+   streamlit run streamlit_app.py
+   ```
 
-### 1. Clone or navigate to the project directory
+## Deployment to Streamlit Cloud
 
-```bash
-cd therapy-meta-generator
-```
+### Step 1: Push to GitHub
 
-### 2. Install server dependencies
+1. Create a new repository on GitHub: https://github.com/new
+   - Name: `therapy-meta-generator`
+   - Make it Public
 
-```bash
-cd server
-npm install
-```
+2. Push your code:
+   ```bash
+   git add .
+   git commit -m "Add Streamlit app"
+   git remote add origin https://github.com/sean-cw-projects/therapy-meta-generator.git
+   git branch -M main
+   git push -u origin main
+   ```
 
-### 3. Install client dependencies
+### Step 2: Deploy on Streamlit Cloud
 
-```bash
-cd ../client
-npm install
-```
+1. Go to https://share.streamlit.io/
+2. Click **"New app"**
+3. Select your GitHub repo: `sean-cw-projects/therapy-meta-generator`
+4. Main file path: `streamlit_app.py`
+5. **Add Secret**:
+   - Go to Advanced settings
+   - Add secret: `ANTHROPIC_API_KEY = "your-api-key"`
+6. Click **Deploy**!
 
-### 4. Set up environment variables
-
-Create a `.env` file in the `server` directory:
-
-```bash
-cd ../server
-cp .env.example .env
-```
-
-Edit the `.env` file and add your Anthropic API key:
-
-```
-ANTHROPIC_API_KEY=your_actual_api_key_here
-PORT=5000
-```
-
-## Running the Application
-
-### Start the backend server (from the server directory)
-
-```bash
-cd server
-npm run dev
-```
-
-The server will run on `http://localhost:5000`
-
-### Start the frontend (from the client directory, in a new terminal)
-
-```bash
-cd client
-npm start
-```
-
-The React app will run on `http://localhost:3000`
+Your app will be live at: `https://therapy-meta-generator.streamlit.app`
 
 ## Usage
 
-### For Specialty Pages
+### Specialty Pages
+- Enter specialty, practice name, city, state
+- No content needed - uses structured variables only
+- Generates empathetic, conversion-focused meta
 
-1. Select "Specialty Page" as the page type
-2. (Optional) Enter the specialty name (e.g., "Anxiety Therapy", "EMDR")
-3. (Optional) Enter a focus keyword (e.g., "anxiety therapist Seattle")
-4. Paste your specialty page content
-5. Click "Generate Meta Description"
+### Homepage
+- Enter practice name, city, keywords
+- Auto-generates specialty list or extracts from content
+- Creates comma-separated meta descriptions
 
-### For Blog Posts
+### Blog Posts
+- Enter blog title and optional content
+- Generates descriptive (not promotional) meta
+- Focuses on what the blog post covers
 
-1. Select "Blog Post" as the page type
-2. (Optional) Enter the related specialty (e.g., "Anxiety", "Depression")
-3. (Optional) Enter a focus keyword
-4. Paste your blog post content
-5. Click "Generate Meta Description"
+## Updating After Feedback
 
-## SEO Scoring Criteria
+Making changes is easy:
 
-The tool evaluates meta descriptions based on:
+1. Edit `streamlit_app.py`
+2. Commit and push:
+   ```bash
+   git add .
+   git commit -m "Update based on feedback"
+   git push
+   ```
+3. Streamlit auto-deploys in ~1 minute!
 
-- **Character Count** (30 points): Optimal length is 150-160 characters
-- **Focus Keyword Inclusion** (25 points): Focus keyword appears in the description
-- **Specialty Mention** (20 points): Specialty is naturally included
-- **Call to Action** (15 points): Contains action words or value propositions
-- **Uniqueness** (10 points): Avoids generic phrases like "click here"
+## API Costs
 
-## API Endpoints
+- Model: Claude Sonnet 4.5
+- Pricing: $3/M input tokens, $15/M output tokens
+- Typical cost per generation: $0.001-0.003
 
-### POST `/api/generate`
+## Tech Stack
 
-Generate a single meta description.
-
-**Request Body:**
-```json
-{
-  "pageType": "specialty" | "blog",
-  "specialty": "Anxiety Therapy",
-  "focusKeyword": "anxiety therapist Seattle",
-  "content": "Your page content here..."
-}
-```
-
-**Response:**
-```json
-{
-  "metaDescription": "Generated description...",
-  "seoScore": 85,
-  "feedback": ["✓ Optimal length", "✓ Focus keyword included"],
-  "characterCount": 157
-}
-```
-
-### POST `/api/generate-bulk`
-
-Generate multiple meta descriptions (max 10 per request).
-
-**Request Body:**
-```json
-{
-  "items": [
-    {
-      "pageType": "specialty",
-      "specialty": "Anxiety Therapy",
-      "focusKeyword": "anxiety therapy",
-      "content": "Content here..."
-    },
-    {
-      "pageType": "blog",
-      "specialty": "Depression",
-      "content": "Blog content here..."
-    }
-  ]
-}
-```
-
-## Project Structure
-
-```
-therapy-meta-generator/
-├── client/                 # React frontend
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── App.js         # Main React component
-│   │   ├── App.css        # Styles
-│   │   ├── index.js       # React entry point
-│   │   └── index.css      # Global styles
-│   └── package.json
-├── server/                 # Node.js backend
-│   ├── server.js          # Express server & Claude API integration
-│   ├── .env.example       # Environment variables template
-│   └── package.json
-└── README.md
-```
-
-## Customization
-
-### Adjusting Prompts
-
-Edit the `systemPrompt` variables in [server/server.js](server/server.js) to customize how Claude generates meta descriptions for specialty pages vs blog posts.
-
-### Modifying SEO Scoring
-
-The `calculateSEOScore` function in [server/server.js](server/server.js) can be adjusted to change scoring criteria and weights.
-
-### Styling
-
-Modify [client/src/App.css](client/src/App.css) to change the visual appearance of the application.
-
-## Tips for Best Results
-
-1. **Provide detailed content**: The more context you give, the better the generated description
-2. **Use specific keywords**: Include location, specialty, and target audience in your focus keyword
-3. **Review and edit**: Treat generated descriptions as a starting point and refine as needed
-4. **Test variations**: Generate multiple times with slightly different inputs to compare results
-5. **Consider your audience**: Specialty pages should be more conversion-focused, blogs more educational
-
-## Troubleshooting
-
-### "Failed to generate meta description" Error
-
-- Check that your Anthropic API key is correctly set in the `.env` file
-- Ensure you have API credits available
-- Verify your internet connection
-
-### Server Not Starting
-
-- Make sure port 5000 is not already in use
-- Check that all dependencies are installed with `npm install`
-- Verify your Node.js version is 14 or higher
-
-### React App Not Loading
-
-- Ensure the backend server is running first
-- Check that the proxy setting in `client/package.json` points to the correct server URL
-- Clear your browser cache and reload
-
-## Future Enhancements
-
-Potential features for future versions:
-
-- Bulk CSV import/export
-- Save and manage generated descriptions
-- User authentication and team management
-- A/B testing suggestions
-- Integration with Google Search Console
-- Multi-language support
-- Custom prompt templates
-- Performance analytics
+- **Frontend**: Streamlit (Python)
+- **AI**: Anthropic Claude API
+- **Deployment**: Streamlit Cloud
 
 ## License
 
-This project is for internal agency use.
+MIT
 
-## Support
+---
 
-For questions or issues, contact your development team.
+🤖 Built with Claude Sonnet 4.5
