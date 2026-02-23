@@ -143,7 +143,8 @@ REQUIREMENTS:
 
 GLOBAL RULES:
 • Count characters INCLUDING spaces before returning.
-• Prioritize natural, complete sentences over strict character limits.
+• MUST stay under 160 characters maximum.
+• Prioritize complete sentences but NEVER exceed 160 chars.
 • Do NOT explain reasoning.
 • Do NOT use quotation marks.
 • Output ONLY the final meta text.
@@ -206,6 +207,21 @@ GLOBAL RULES:
     )
 
     meta_description = desc_message.content[0].text.strip()
+
+    # Truncate description if over 160 characters
+    if len(meta_description) > 160:
+        # Try to cut at last sentence (period) before 160
+        last_period = meta_description[:160].rfind('.')
+        if last_period > 130:
+            # Cut at sentence boundary
+            meta_description = meta_description[:last_period + 1].strip()
+        else:
+            # No good sentence break, cut at word boundary
+            last_space = meta_description[:158].rfind(' ')
+            if last_space > 0:
+                meta_description = meta_description[:last_space].strip() + '.'
+            else:
+                meta_description = meta_description[:158].strip()
 
     # Build title prompts
     if page_type == "Homepage":
