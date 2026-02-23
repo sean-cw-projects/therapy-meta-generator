@@ -1,0 +1,19 @@
+{
+  "name": "therapy-meta-generator",
+  "version": "1.0.0",
+  "description": "Meta description generator for therapy websites",
+  "scripts": {
+    "install-all": "cd server && npm install && cd ../client && npm install",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "dev": "echo 'Run npm run server in one terminal and npm run client in another'"
+  },
+  "keywords": [
+    "therapy",
+    "seo",
+    "meta-description",
+    "claude-ai"
+  ],
+  "author": "",
+  "license": "ISC"
+}
