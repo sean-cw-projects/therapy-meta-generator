@@ -126,8 +126,8 @@ STRICT STRUCTURE:
 • Sentence 2: Include Practice Name and how they help.
 
 REQUIREMENTS:
-• STRICT: 150–155 characters INCLUDING spaces. NEVER exceed 155.
-• Every word matters - be VERY concise.
+• STRICT: 150–158 characters INCLUDING spaces.
+• Prioritize including FULL city name and practice name over shortening to 155.
 • Must include all elements:
   - Focus Keyword (naturally integrated)
   - City (FULL city name like "Los Altos" or "San Francisco")
