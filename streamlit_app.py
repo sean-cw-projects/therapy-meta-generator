@@ -125,9 +125,17 @@ STRICT STRUCTURE:
 • Sentence 1: Describe the problem related to the specialty.
 • Sentence 2: Include Practice Name and how they help.
 
+CHARACTER LIMIT RULES:
+• TARGET: 150–158 characters INCLUDING spaces.
+• If you must exceed 158 to complete the second sentence, do so BUT:
+  - Use the MINIMUM words needed to complete it
+  - Keep sentence 2 as concise as possible
+  - Do NOT add extra details like "rebuild connection and intimacy"
+  - Example of TOO LONG: "...therapy in Los Altos to help rebuild connection and intimacy."
+  - Better: "...therapy in Los Altos to restore your relationship."
+• ALWAYS include FULL city name and practice name even if it means going slightly over.
+
 REQUIREMENTS:
-• STRICT: 150–158 characters INCLUDING spaces.
-• Prioritize including FULL city name and practice name over shortening to 155.
 • Must include all elements:
   - Focus Keyword (naturally integrated)
   - City (FULL city name like "Los Altos" or "San Francisco")
@@ -136,7 +144,6 @@ REQUIREMENTS:
   - PREFER "in [City]" (complete as-is): "therapy in Los Altos"
   - If using "for [City]", MUST add "residents" or "clients": "therapy for Nashville residents"
   - NEVER end with just "for [City]." - this is incomplete
-• If too long, shorten the first sentence, NOT the city or practice name.
 • Count characters before returning.
 
 GLOBAL RULES:
