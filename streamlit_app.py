@@ -126,25 +126,21 @@ STRICT STRUCTURE:
 • Sentence 2: Include Practice Name and how they help.
 
 REQUIREMENTS:
-• STRICT: 150–158 characters INCLUDING spaces. Do NOT exceed 158.
-• Every word matters - be concise.
+• STRICT: 150–155 characters INCLUDING spaces. NEVER exceed 155.
+• Every word matters - be VERY concise.
 • Must include all elements:
   - Focus Keyword (naturally integrated)
-  - City with proper connector
-  - Practice Name
+  - City (FULL city name like "Los Altos" or "San Francisco")
+  - Practice Name (USE THE EXACT NAME PROVIDED - not "the practice")
 • City placement rules:
-  - PREFER "in [City]" (complete as-is): "therapy in Nashville"
+  - PREFER "in [City]" (complete as-is): "therapy in Los Altos"
   - If using "for [City]", MUST add "residents" or "clients": "therapy for Nashville residents"
   - NEVER end with just "for [City]." - this is incomplete
-• Example: "anxiety therapy in Nashville" OR "anxiety therapy for Nashville residents"
-• If too long, shorten adjectives first.
-• If too short, add clarifying detail.
+• If too long, shorten the first sentence, NOT the city or practice name.
 • Count characters before returning.
 
 GLOBAL RULES:
 • Count characters INCLUDING spaces before returning.
-• MUST stay under 160 characters maximum.
-• Prioritize complete sentences but NEVER exceed 160 chars.
 • Do NOT explain reasoning.
 • Do NOT use quotation marks.
 • Output ONLY the final meta text.
@@ -156,7 +152,9 @@ GLOBAL RULES:
 Focus Keyword: {focus_keyword or 'therapy'}
 Practice Name: {practice_name or 'the practice'}
 City: {city or 'the city'}
-State: {state or 'ST'}"""
+State: {state or 'ST'}
+
+CRITICAL: Use the EXACT practice name provided above. Include the FULL city name."""
 
     else:  # Blog Post
         desc_system = """Generate a blog post meta description.
