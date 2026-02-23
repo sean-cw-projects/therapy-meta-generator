@@ -120,40 +120,36 @@ Focus Keyword: {focus_keyword or 'therapy'}"""
     elif page_type == "Specialty Page":
         desc_system = """Generate a specialty page meta description.
 
+ABSOLUTE CHARACTER LIMIT: 150-165 characters maximum INCLUDING spaces.
+
 STRICT STRUCTURE:
 • EXACTLY two sentences.
-• Sentence 1: Describe the problem related to the specialty.
-• Sentence 2: Include Practice Name and how they help.
+• Sentence 1: BRIEF problem statement (40-60 chars).
+• Sentence 2: Practice Name + how they help + city (90-105 chars).
 
-CHARACTER LIMIT RULES:
-• TARGET: 150–158 characters INCLUDING spaces.
-• If you must exceed 158 to complete the second sentence, do so BUT:
-  - Use the MINIMUM words needed to complete it
-  - Keep sentence 2 as concise as possible
-  - Do NOT add extra details like "rebuild connection and intimacy"
-  - Example of TOO LONG: "...therapy in Los Altos to help rebuild connection and intimacy."
-  - Better: "...therapy in Los Altos to restore your relationship."
-• ALWAYS include FULL city name and practice name even if it means going slightly over.
+EXAMPLES OF CORRECT LENGTH:
+✓ "Anxiety can feel overwhelming and isolating. Denver Therapy Center offers expert anxiety therapy in Denver to help you find relief." (140 chars)
+✓ "Couples therapy helps partners rebuild connection. Nashville Counseling provides couples therapy for Nashville residents." (124 chars)
+✓ "EMDR treats trauma effectively. Healing Path Therapy offers EMDR therapy in San Francisco." (93 chars)
+
+EXAMPLES OF TOO LONG (DO NOT DO THIS):
+✗ "Relationship conflicts and communication breakdowns can leave couples feeling disconnected and frustrated. South Bay Therapy Services offers expert couples therapy in Los Altos to help partners rebuild trust and strengthen their bond." (235 chars - WAY TOO LONG)
 
 REQUIREMENTS:
 • Must include all elements:
   - Focus Keyword (naturally integrated)
   - City (FULL city name like "Los Altos" or "San Francisco")
-  - Practice Name (USE THE EXACT NAME PROVIDED - not "the practice")
-• City placement rules:
-  - PREFER "in [City]" (complete as-is): "therapy in Los Altos"
-  - If using "for [City]", MUST add "residents" or "clients": "therapy for Nashville residents"
-  - NEVER end with just "for [City]." - this is incomplete
-• Count characters before returning.
+  - Practice Name (USE THE EXACT NAME PROVIDED)
+• Keep sentence 2 CONCISE - just "Practice Name provides/offers [specialty] in [City]."
+• Do NOT add extra phrases like "rebuild trust and strengthen their bond"
+• If approaching 165 chars, end sentence 2 immediately after city name with period.
 
 GLOBAL RULES:
 • Count characters INCLUDING spaces before returning.
+• If over 165, STOP and make sentence 1 shorter.
 • Do NOT explain reasoning.
 • Do NOT use quotation marks.
-• Output ONLY the final meta text.
-• No extra labels.
-• No emojis.
-• No trailing spaces."""
+• Output ONLY the final meta text."""
 
         desc_user = f"""Specialty: {specialty or 'Therapy'}
 Focus Keyword: {focus_keyword or 'therapy'}
@@ -213,14 +209,17 @@ GLOBAL RULES:
 
     meta_description = desc_message.content[0].text.strip()
 
-    # Truncate description if over 160 characters - only at sentence boundaries
-    if len(meta_description) > 160:
-        # Try to cut at last sentence (period) before 160
-        last_period = meta_description[:160].rfind('.')
-        if last_period > 140:  # Only cut if we have a good sentence boundary
-            # Cut at sentence boundary
-            meta_description = meta_description[:last_period + 1].strip()
-        # Otherwise let it be slightly over - better than cutting mid-phrase
+    # Truncate description if over limit
+    if len(meta_description) > 165:
+        # If way over limit, cut at first sentence
+        first_period = meta_description.find('.')
+        if first_period > 0 and first_period < 160:
+            meta_description = meta_description[:first_period + 1].strip()
+        else:
+            # Force truncate at 160 if no good sentence boundary
+            meta_description = meta_description[:160].strip()
+            if not meta_description.endswith('.'):
+                meta_description += '...'
 
     # Build title prompts
     if page_type == "Homepage":
