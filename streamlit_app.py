@@ -126,8 +126,8 @@ STRICT STRUCTURE:
 • Sentence 2: Include Practice Name and how they help.
 
 REQUIREMENTS:
-• Target 150–158 characters INCLUDING spaces.
-• Can go up to 160 characters if needed to complete the sentence naturally.
+• STRICT: 150–158 characters INCLUDING spaces. Do NOT exceed 158.
+• Every word matters - be concise.
 • Must include all elements:
   - Focus Keyword (naturally integrated)
   - City with proper connector
@@ -208,20 +208,14 @@ GLOBAL RULES:
 
     meta_description = desc_message.content[0].text.strip()
 
-    # Truncate description if over 160 characters
+    # Truncate description if over 160 characters - only at sentence boundaries
     if len(meta_description) > 160:
         # Try to cut at last sentence (period) before 160
         last_period = meta_description[:160].rfind('.')
-        if last_period > 130:
+        if last_period > 140:  # Only cut if we have a good sentence boundary
             # Cut at sentence boundary
             meta_description = meta_description[:last_period + 1].strip()
-        else:
-            # No good sentence break, cut at word boundary
-            last_space = meta_description[:158].rfind(' ')
-            if last_space > 0:
-                meta_description = meta_description[:last_space].strip() + '.'
-            else:
-                meta_description = meta_description[:158].strip()
+        # Otherwise let it be slightly over - better than cutting mid-phrase
 
     # Build title prompts
     if page_type == "Homepage":
