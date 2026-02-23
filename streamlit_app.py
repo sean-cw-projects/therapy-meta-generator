@@ -333,34 +333,30 @@ Content:
 st.title("🧠 Therapy Meta Description Generator")
 st.markdown("Generate SEO-optimized meta descriptions and titles for therapy websites")
 
+# Page Type - OUTSIDE form so it updates dynamically
+page_type = st.selectbox(
+    "Page Type",
+    ["Homepage", "Specialty Page", "Blog Post"],
+    help="Select the type of page you're creating meta tags for"
+)
+
 # Main form
 with st.form("meta_generator_form"):
-    # Page Type
-    page_type = st.selectbox(
-        "Page Type",
-        ["Homepage", "Specialty Page", "Blog Post"],
-        help="Select the type of page you're creating meta tags for"
-    )
-
     col1, col2 = st.columns(2)
 
     with col1:
         # Specialty/Topic field (label changes based on page type)
         if page_type == "Homepage":
-            specialty = st.text_input(
-                "Practice Name (Optional)",
-                help="e.g., Serenity Counseling Center, Mindful Therapy Group"
-            )
+            specialty_label = "Practice Name (Optional)"
+            specialty_help = "e.g., Serenity Counseling Center, Mindful Therapy Group"
         elif page_type == "Specialty Page":
-            specialty = st.text_input(
-                "Specialty Name (Optional)",
-                help="e.g., Anxiety Therapy, EMDR, Depression Counseling"
-            )
+            specialty_label = "Specialty Name (Optional)"
+            specialty_help = "e.g., Anxiety Therapy, EMDR, Depression Counseling"
         else:
-            specialty = st.text_input(
-                "Related Specialty (Optional)",
-                help="e.g., Anxiety, Depression, Trauma"
-            )
+            specialty_label = "Related Specialty (Optional)"
+            specialty_help = "e.g., Anxiety, Depression, Trauma"
+
+        specialty = st.text_input(specialty_label, help=specialty_help)
 
         practice_name = st.text_input(
             "Practice/Business Name (Optional)",
@@ -392,9 +388,15 @@ with st.form("meta_generator_form"):
         else:
             blog_title = ""
 
-    # Content field
+    # Content field with dynamic label
+    content_label = {
+        "Homepage": "Homepage Content (Optional - Should not be needed)",
+        "Specialty Page": "Specialty Page Content (Optional - Should not be needed)",
+        "Blog Post": "Blog Content (Optional - Should not be needed)"
+    }
+
     content = st.text_area(
-        f"{page_type} Content (Optional - Should not be needed)",
+        content_label[page_type],
         height=150,
         help="Paste content here if needed (optional)"
     )
