@@ -345,6 +345,70 @@ Content:
         'output_tokens': total_output
     }
 
+# Custom CSS for better styling
+st.markdown("""
+<style>
+    /* Main container */
+    .main {
+        background-color: #f8f9fa;
+    }
+
+    /* Form styling */
+    .stForm {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Input fields */
+    .stTextInput input, .stTextArea textarea {
+        border-radius: 5px;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* Buttons */
+    .stButton button {
+        border-radius: 5px;
+        font-weight: 600;
+    }
+
+    /* Results section */
+    .results-container {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Code blocks */
+    code {
+        background-color: #f5f5f5;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border-left: 3px solid #10b981;
+    }
+
+    /* Headers */
+    h1 {
+        color: #1f2937;
+        font-weight: 700;
+    }
+
+    h3 {
+        color: #374151;
+        font-weight: 600;
+        margin-top: 1rem;
+    }
+
+    /* Success/warning boxes */
+    .stSuccess, .stWarning, .stError, .stInfo {
+        border-radius: 5px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Header
 st.title("🧠 Therapy Meta Description Generator")
 st.markdown("Generate SEO-optimized meta descriptions and titles for therapy websites")
